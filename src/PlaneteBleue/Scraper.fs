@@ -38,9 +38,9 @@ module Scraper =
         let songs = 
             doc.CssSelect("table")
             |> List.map (fun n ->
-                let a = n.Descendants("span") |> Seq.head
+                let a = n.CssSelect("a") |> Seq.head
                 let artist = a.InnerText()
-                let t = n.Descendants("i") |> Seq.head
+                let t = n.CssSelect("i") |> Seq.head
                 let title = t.InnerText()
                 { Title = title; Artist = artist})
         {Tracks= songs;Name= episodeNbr}

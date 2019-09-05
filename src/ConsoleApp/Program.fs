@@ -2,10 +2,16 @@
 open PlaneteBleue
 open CommandLine
 
-// [<Verb("pb", HelpText = "PlaneteBleue")>]
+[<Verb("pb", HelpText = "PlaneteBleue")>]
 type PlaneteBleueOptions = {
     [<Option('e', "episode", HelpText = "Episode number")>]  episodeNbr : int
 }
+
+[<Verb("search", HelpText = "PlaneteBleue")>]
+type SearchOptions = {
+    [<Option('e', "episode", HelpText = "Episode number")>]  episodeNbr : int
+}
+
 
 let printReleases = 
     lazy (
@@ -24,17 +30,18 @@ let run (options:PlaneteBleueOptions) =
         | 0 -> () // printReleases
         | e -> printPlaylist e
 
-let fail (errors:System.Collections.Generic.IEnumerable<Error>) = 
-    printfn "Couldn't parse options"
-    // errors |> Seq.iter (fun e -> (printfn "%s") e.Tag.GetTypeCode(). )
-
 [<EntryPoint>]
 let main argv =
-    let result = CommandLine.Parser.Default.ParseArguments<PlaneteBleueOptions>(argv)
+    let result = CommandLine.Parser.Default.ParseArguments<PlaneteBleueOptions, SearchOptions>(argv)
     match result with 
-        | :? Parsed<PlaneteBleueOptions> as parsed -> run parsed.Value
-        | :? NotParsed<PlaneteBleueOptions> as notParsed -> fail notParsed.Errors
-        | _ -> printfn "No option specified"
+        | :? CommandLine.Parsed<obj> as command ->
+            match command.Value with 
+                | :? PlaneteBleueOptions as opts -> run opts
+                // | :? Parsed<PlaneteBleueOptions> as parsed -> run parsed.Value
+                // | :? NotParsed<PlaneteBleueOptions> as notParsed -> fail notParsed.Errors
+                | _ -> ()
+        | :? CommandLine.NotParsed<obj> -> printfn "No option specified"
+        | _ -> ()                  
 
 
  
