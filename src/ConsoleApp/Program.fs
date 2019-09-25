@@ -14,10 +14,10 @@ type SearchOptions = {
 
 
 let printReleases = 
-    lazy (
+    // lazy (
         let releases = Scraper.GetEpisodeList 
         releases |> Seq.iter (fun r -> printfn "%s" r.Name )
-    )
+    // )
 
 let printPlaylist e = 
      Scraper.GetPlaylist e |> (fun p -> 
@@ -27,7 +27,7 @@ let printPlaylist e =
 
 let run (options:PlaneteBleueOptions) = 
     match options.episodeNbr with
-        | 0 -> () // printReleases
+        | 0 -> printReleases
         | e -> printPlaylist e
 
 [<EntryPoint>]

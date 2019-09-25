@@ -36,15 +36,19 @@ module Scraper =
 
         let doc = HtmlDocument.Load("https://laplanetebleue.com/emission-"+ (episodeNbr |> string))
         let songs = 
+            // each song is in its own table
             doc.CssSelect("table")
             |> List.map (fun n ->
+                // the artist name and title are in <a> and <i> elements respectively
+                // it is important to select them as a child of p, otherwise it will match other tables on the page 
                 let a = n.CssSelect("p a") 
-                let t = n.CssSelect("p i")
-                (a, t)) |> List.filter (fun (a,t) -> 
-                    not <| Seq.isEmpty a && not <| Seq.isEmpty t
-                ) |> List.map (fun (a, t) -> 
+                let i = n.CssSelect("p i")
+                (a, i)) |> List.filter (fun (a,i) -> 
+                    // skip the tables where we didn't find either of those elements
+                    not <| Seq.isEmpty a && not <| Seq.isEmpty i
+                ) |> List.map (fun (a, i) -> 
                     let artist = (a |> Seq.head).InnerText()  
-                    let title = (t |> Seq.head).InnerText()
+                    let title = (i |> Seq.head).InnerText()
                     { Title = title; Artist = artist}
                 )
         {Tracks= songs;Name= episodeNbr}
