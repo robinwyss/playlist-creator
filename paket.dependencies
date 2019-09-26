@@ -3,3 +3,6 @@ source https://www.nuget.org/api/v2
 nuget CommandLineParser
 nuget FSharp.Core
 nuget FSharp.Data
+nuget Nunit
+nuget NUnit3TestAdapter
+nuget Microsoft.NET.Test.Sdk
