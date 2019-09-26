@@ -6,7 +6,7 @@ open PlaneteBleueTypes
 
 module Scraper =
 
-    let GetEpisodeList =
+    let GetEpisodeListInternal (loader: string -> HtmlDocument) =
 
         let extractEpisodeNum txt = 
             let result = Regex.Match(txt,"LPB\s(\d+)\s.*")
@@ -15,7 +15,7 @@ module Scraper =
             else 
                 Error txt
 
-        let results = HtmlDocument.Load("https://laplanetebleue.com/emissions")
+        let results = loader("https://laplanetebleue.com/emissions")
 
         // find the dropdown (select) with id="emission"
         let select = 
@@ -29,12 +29,13 @@ module Scraper =
                 match x with
                     | Success e -> Some e
                     |_ -> None)
+   
 
-    let GetPlaylist (episodeNbr: int) =
+    let GetPlaylistInternal (loader: string -> HtmlDocument) (episodeNbr: int) =
 
         // let episodeNbr = episode.Id
 
-        let doc = HtmlDocument.Load("https://laplanetebleue.com/emission-"+ (episodeNbr |> string))
+        let doc = loader("https://laplanetebleue.com/emission-"+ (episodeNbr |> string))
         let songs = 
             // each song is in its own table
             doc.CssSelect("table")
@@ -52,3 +53,10 @@ module Scraper =
                     { Title = title; Artist = artist}
                 )
         {Tracks= songs;Name= episodeNbr}
+
+    let loadDocument (url:string) =
+         HtmlDocument.Load(url)
+
+    let GetPlaylist = GetPlaylistInternal loadDocument 
+
+    let GetEpisodeList = GetEpisodeListInternal loadDocument

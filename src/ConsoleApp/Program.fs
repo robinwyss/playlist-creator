@@ -42,11 +42,4 @@ let main argv =
                 | _ -> ()
         | :? CommandLine.NotParsed<obj> -> printfn "No option specified"
         | _ -> ()                  
-
-
- 
-
-
-    
-    // printfn "Hello World from F#!"
     0 // return an integer exit code
