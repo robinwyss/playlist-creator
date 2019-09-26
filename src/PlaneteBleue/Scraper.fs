@@ -59,4 +59,4 @@ module Scraper =
 
     let GetPlaylist = GetPlaylistInternal loadDocument 
 
-    let GetEpisodeList = GetEpisodeListInternal loadDocument
+    let GetEpisodeList() = GetEpisodeListInternal loadDocument
