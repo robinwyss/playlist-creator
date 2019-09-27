@@ -5,5 +5,7 @@ Build the project
 
 Run Tests
 `dotnet test`
+
 Run
 `dotnet run --project src/ConsoleApp/ConsoleApp.fsproj`
+
