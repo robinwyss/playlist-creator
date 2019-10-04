@@ -9,7 +9,7 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ConsoleApp", "src\ConsoleAp
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PlaneteBleue", "src\PlaneteBleue\PlaneteBleue.fsproj", "{4FA3FC83-AD4B-4099-903A-6BB1A4166F62}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PlaneteBleueTest", "src\PlaneteBleueTest\PlaneteBleueTest.fsproj", "{14555403-C0C7-4E82-89E5-E8FD12FA7F70}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PlaneteBleueTest", "test\PlaneteBleueTest\PlaneteBleueTest.fsproj", "{14555403-C0C7-4E82-89E5-E8FD12FA7F70}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "WebApp", "src\WebApp\WebApp.fsproj", "{1AC8BC68-C814-4172-9B4B-3437F400D102}"
 EndProject
