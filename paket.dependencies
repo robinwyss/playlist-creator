@@ -6,3 +6,4 @@ nuget FSharp.Data
 nuget Nunit
 nuget NUnit3TestAdapter
 nuget Microsoft.NET.Test.Sdk
+nuget Giraffe
