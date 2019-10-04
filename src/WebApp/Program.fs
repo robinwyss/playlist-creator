@@ -8,7 +8,7 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open WebApp.HttpHandlers
-open PlaneteBleue
+
 
 // ---------------------------------
 // Web app
@@ -20,15 +20,16 @@ let webApp =
             (choose [
                 GET >=> choose [
                     route "/ping" >=> handleGetPing
+                    subRoute "/pb"
+                        (choose [
+                            GET >=> choose [
+                                route "/" >=> handlePlaneteBleueEpisodes
+                                routef "/%i" handlePlaneteBleuePlaylist
+                            ]
+                        ])
                 ]
             ])
-        subRoute "/pb"
-            (choose [
-                GET >=> choose [
-                    route "/" >=> handlePlaneteBleueEpisodes
-                    routef "/%i" handlePlaneteBleuePlaylist
-                ]
-            ])
+       
         setStatusCode 404 >=> text "Not Found" ]
 
 // ---------------------------------
